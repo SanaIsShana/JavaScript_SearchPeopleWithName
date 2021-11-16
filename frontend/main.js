@@ -1,6 +1,8 @@
 //Add ab event listener on keyup in the input field
 //run the search function on each keyup
 $('input').keyup(search);
+const d = new Date();
+let age = 0;
 
 //A click on a person should toggle (show/hide) more info
 // delegated event handling with "on"
@@ -38,15 +40,37 @@ async function displaySearchResult(persons) {
   //and use a destructuring assignment to get person properties
   //as loop variables
   for (let { firstName, lastName, email, birthDate, imageUrl, phone, country } of persons) {
+
+    let month = parseInt(birthDate.slice(5, 7))
+    let date = parseInt(birthDate.slice(8, 10))
+    let year = parseInt(birthDate.slice(0, 4))
+
+
+    if (month == d.getMonth() + 1) {
+      if (date == d.getDate()) {
+        age = d.getFullYear() - year
+      }
+      else if (date < d.getDate()) {
+        age = d.getFullYear() - 1 - year
+      }
+    }
+    else if (month < d.getMonth() + 1) {
+      age = d.getFullYear() - year
+    }
+    else if (month > d.getMonth() + 1) {
+      age = d.getFullYear() - year
+    }
+
     //Add html to display the person in the div.result
     html += `
     <div class="person">
     <h3>${firstName} ${lastName}</h3>
     <p><b>Email:</b>${email}</b></p>
-    <p><b>Birth date:</b> ${birthDate}</p>
-    <p><img src=${imageUrl}></p>
+    <p><b>Birth date:</b>${birthDate}</p>
+    <p class="photo"><img src=${imageUrl}></p>
     <p><b>Phone:</b>${phone}</p>
     <p><b>Country:</b>${country}</p>
+    <p><b>Age:</b>${age}</p>
     </div>
     `;
   }

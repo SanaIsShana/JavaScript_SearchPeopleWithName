@@ -37,14 +37,14 @@ for (let person of rawJSON) {
     birthDate: person.dob.date.slice(0, 10),
     imageUrl: person.picture.large,
     phone: person.cell,
-    country: person.location.country
+    country: person.location.country,
 
   })
 }
 
 // Save the converted JSON to 'persons-filtered.json'
 fs.writeFileSync(
-  './persons-filtered.json',
+  './persons.json',
   JSON.stringify(convertedJSON, '', '  '),
   'utf8'
 );
